@@ -1,13 +1,29 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { configureStore } from '@reduxjs/toolkit';
+import { Provider } from 'react-redux';
+import gamesReducer from '../src/utils/GameSlice'
+import movieDetailsReducer from '../src/utils/DetailsSlice'
+import { BrowserRouter } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+// creating a store and a place where all the reducers will be
+const appStore = configureStore({
+  reducer:{
+    games: gamesReducer,
+    movieDetails : movieDetailsReducer,
+  }
+});  
+
 root.render(
   <React.StrictMode>
-    <App />
+    <Provider store={appStore} >
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>
 );
 
